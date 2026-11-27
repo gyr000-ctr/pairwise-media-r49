@@ -20,7 +20,7 @@ CASES = [
     ("dedup", lambda: _d().peel([0.5, 0.5, 0.7]) == [0.5, 0.7]),
     ("cap", lambda: len(depthpeel.DepthPeel(2).peel([0.1, 0.2, 0.3])) == 2),
     ("empty", lambda: _d().peel([]) == []),
-    ("count", lambda: (_d().peel([0.1, 0.2]), _d().count())[1] == 2),
+    ("count", lambda: (lambda d: (d.peel([0.1, 0.2]), d.count())[1] == 2)(_d())),
     ("bad_layers", lambda: _raises(lambda: depthpeel.DepthPeel(0))),
     ("bad_depth", lambda: _raises(lambda: _d().peel([-0.1]))),
     ("type", lambda: isinstance(_d().peel([0.1]), list)),
@@ -29,7 +29,7 @@ CASES = [
     ("no_mut", lambda: _d().peel([0.1, 0.2]) is not None),
     ("count_type", lambda: (_d().peel([0.1]), isinstance(_d().count(), int))[1]),
     ("one", lambda: _d().peel([0.7]) == [0.7]),
-    ("no_sort_mut", lambda: (lambda xs: (_d().peel(xs), xs)[1] == [0.9, 0.1])),
+    ("no_sort_mut", lambda: (lambda xs: (_d().peel(xs), xs)[1] == [0.9, 0.1])([0.9, 0.1])),
 ]
 
 
